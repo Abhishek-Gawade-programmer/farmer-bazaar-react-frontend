@@ -1,94 +1,93 @@
+import React, { useContext, useState } from "react";
 import AuthContext from "../context/AuthContext";
-import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import {
+  MDBContainer,
   MDBNavbar,
   MDBNavbarBrand,
-  MDBNavbarNav,
-  MDBNavItem,
-  MDBNavLink,
   MDBNavbarToggler,
-  MDBCollapse,
-  MDBFormInline,
+  MDBIcon,
+  MDBNavbarNav,
+  MDBNavbarItem,
+  MDBNavbarLink,
+  MDBBtn,
   MDBDropdown,
   MDBDropdownToggle,
   MDBDropdownMenu,
   MDBDropdownItem,
-} from "mdbreact";
-import { Link } from "react-router-dom";
-
-const Header = () => {
+  MDBDropdownLink,
+  MDBCollapse,
+} from "mdb-react-ui-kit";
+export default function Header() {
+  const [showBasic, setShowBasic] = useState(false);
   let { user, logoutUser } = useContext(AuthContext);
+
   return (
-    <div>
-{/* after this uncomment it gives error */}
-{/* 
-      <MDBNavbar color="indigo" dark expand="md">
-        <MDBNavbarBrand>
-          <strong className="white-text">Navbar</strong>
-        </MDBNavbarBrand>
-        <MDBNavbarToggler />
-        <MDBCollapse id="navbarCollapse3"  navbar>
-          <MDBNavbarNav left>
-            <MDBNavItem active>
-              <MDBNavLink to="#!">Home</MDBNavLink>
-            </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink to="#!">Features</MDBNavLink>
-            </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink to="#!">Pricing</MDBNavLink>
-            </MDBNavItem>
-            <MDBNavItem>
-              <MDBDropdown>
-                <MDBDropdownToggle nav caret>
-                  <span className="mr-2">Dropdown</span>
-                </MDBDropdownToggle>
-                <MDBDropdownMenu>
-                  <MDBDropdownItem href="#!">Action</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">Another Action</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">
-                    Something else here
-                  </MDBDropdownItem>
-                  <MDBDropdownItem href="#!">
-                    Something else here
-                  </MDBDropdownItem>
-                </MDBDropdownMenu>
-              </MDBDropdown>
-            </MDBNavItem>
-          </MDBNavbarNav>
-          <MDBNavbarNav right>
-            <MDBNavItem>
-              <MDBFormInline waves>
-                <div className="md-form my-0">
-                  <input
-                    className="form-control mr-sm-2"
-                    type="text"
-                    placeholder="Search"
-                    aria-label="Search"
-                  />
-                </div>
-              </MDBFormInline>
-            </MDBNavItem>
-          </MDBNavbarNav>
-        </MDBCollapse>
-      </MDBNavbar> */}
+    <>
+      <MDBNavbar expand="lg" light bgColor="light">
+        <MDBContainer fluid>
+          <MDBNavbarBrand href="#">Farmer Bazer</MDBNavbarBrand>
 
+          <MDBNavbarToggler
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            onClick={() => setShowBasic(!showBasic)}
+          >
+            <MDBIcon icon="bars" fas />
+          </MDBNavbarToggler>
 
+          <MDBCollapse navbar show={showBasic}>
+            <MDBNavbarNav className="mr-auto mb-2 mb-lg-0">
+              <MDBNavbarItem>
+                <MDBNavbarLink active aria-current="page" href="#">
+                  Home
+                </MDBNavbarLink>
+              </MDBNavbarItem>
 
+              {user ? (
+                <MDBNavbarItem>
+                  <MDBDropdown>
+                    <MDBDropdownToggle tag="a" className="nav-link">
+                      <MDBIcon far icon="user" /> My Acccout
+                    </MDBDropdownToggle>
+                    <MDBDropdownMenu>
+                      <MDBDropdownItem>
+                        <MDBDropdownLink onClick={logoutUser}>
+                          LogOut
+                        </MDBDropdownLink>
+                      </MDBDropdownItem>
+                      <MDBDropdownItem>
+                        <MDBDropdownLink>Change Password</MDBDropdownLink>
+                      </MDBDropdownItem>
+                      <MDBDropdownItem>
+                        <MDBDropdownLink>Something else here</MDBDropdownLink>
+                      </MDBDropdownItem>
+                    </MDBDropdownMenu>
+                  </MDBDropdown>
+                </MDBNavbarItem>
+              ) : (
+                <MDBNavbarItem>
+                  <MDBNavbarLink tag={Link} to="/login">
+                    Login
+                  </MDBNavbarLink>
+                </MDBNavbarItem>
+              )}
+            </MDBNavbarNav>
 
-
-
-      <Link to="/">Home</Link>
-      <span> | </span>
-      {user ? (
-        <p onClick={logoutUser}>Logout</p>
-      ) : (
-        <Link to="/login">Login</Link>
-      )}
-
-      {user && <p>Hello {user.username}</p>}
-    </div>
+            <form className="d-flex input-group w-auto">
+              <input
+                type="search"
+                className="form-control"
+                placeholder="Type query"
+                aria-label="Search"
+              />
+              <MDBBtn color="primary">Search</MDBBtn>
+            </form>
+          </MDBCollapse>
+        </MDBContainer>
+      </MDBNavbar>
+      
+    </>
   );
-};
-
-export default Header;
+}

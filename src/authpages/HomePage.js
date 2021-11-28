@@ -8,13 +8,13 @@ const HomePage = () => {
 
     let api = useAxios()
 
-    useEffect(()=> {
-        getNotes()
-    }, [])
+    // useEffect(()=> {
+    //     getNotes()
+    // }, [])
 
 
     let getNotes = async() =>{
-        let response = await api.get('/api/notes/')
+        let response = await api.get('http://localhost:8000/api/')
 
         if(response.status === 200){
             setNotes(response.data)

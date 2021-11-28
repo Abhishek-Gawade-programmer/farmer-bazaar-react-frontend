@@ -1,0 +1,23 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 info pnpm": {
+    "err": {
+      "name": "Error",
+      "message": "not found: create-react-app",
+      "code": "ENOENT",
+      "stack": "Error: not found: create-react-app\n    at getNotFoundError (/usr/pnpm-global/5/node_modules/.pnpm/pnpm@6.21.1/node_modules/pnpm/dist/pnpm.cjs:36327:51)\n    at Function.whichSync [as sync] (/usr/pnpm-global/5/node_modules/.pnpm/pnpm@6.21.1/node_modules/pnpm/dist/pnpm.cjs:36404:13)\n    at getCommandAbsolutePathSync (/usr/pnpm-global/5/node_modules/.pnpm/pnpm@6.21.1/node_modules/pnpm/dist/pnpm.cjs:37969:44)\n    at default_1 (/usr/pnpm-global/5/node_modules/.pnpm/pnpm@6.21.1/node_modules/pnpm/dist/pnpm.cjs:37978:32)\n    at /usr/pnpm-global/5/node_modules/.pnpm/pnpm@6.21.1/node_modules/pnpm/dist/pnpm.cjs:130125:39"
+    }
+  },
+  "2 error pnpm": {
+    "code": "ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL",
+    "prefix": "/home/abhishek/React-Django Projects/django_react_authtication/frontend",
+    "err": {
+      "name": "pnpm",
+      "message": "not found: create-react-app",
+      "code": "ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL",
+      "stack": "Error: not found: create-react-app\n    at getNotFoundError (/usr/pnpm-global/5/node_modules/.pnpm/pnpm@6.21.1/node_modules/pnpm/dist/pnpm.cjs:36327:51)\n    at Function.whichSync [as sync] (/usr/pnpm-global/5/node_modules/.pnpm/pnpm@6.21.1/node_modules/pnpm/dist/pnpm.cjs:36404:13)\n    at getCommandAbsolutePathSync (/usr/pnpm-global/5/node_modules/.pnpm/pnpm@6.21.1/node_modules/pnpm/dist/pnpm.cjs:37969:44)\n    at default_1 (/usr/pnpm-global/5/node_modules/.pnpm/pnpm@6.21.1/node_modules/pnpm/dist/pnpm.cjs:37978:32)\n    at /usr/pnpm-global/5/node_modules/.pnpm/pnpm@6.21.1/node_modules/pnpm/dist/pnpm.cjs:130125:39"
+    }
+  }
+}

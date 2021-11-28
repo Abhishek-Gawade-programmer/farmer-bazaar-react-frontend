@@ -24,7 +24,7 @@ axiosInstance.interceptors.request.use(async req => {
 
     if(!isExpired) return req
 
-    const response = await axios.post(`${baseURL}/api/token/refresh/`, {
+    const response = await axios.post(`${baseURL}/api/users/token/`, {
         refresh: authTokens.refresh
       });
 
