@@ -1,64 +1,31 @@
 import React, { useContext, useState } from "react";
-
+import axios from "axios";
 import AuthContext from "../context/AuthContext";
 import { Link } from "react-router-dom";
-import {
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBBtn,
-  MDBAlert,
-} from "mdb-react-ui-kit";
-import jwt_decode from "jwt-decode";
-import { useHistory } from "react-router-dom";
+import { MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdb-react-ui-kit";
+
 
 export default function LoginPage() {
   let { setAuthTokens } = useContext(AuthContext);
   let { setUser } = useContext(AuthContext);
-  const [error, setError] = useState(null);
-
-  const history = useHistory();
-  let loginUser = async (e) => {
-    e.preventDefault();
-    let response = await fetch("http://localhost:8000/api/users/token/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: e.target.phone.value,
-        password: e.target.password.value,
-      }),
-    });
-    let data = await response.json();
-    if (response.status === 200) {
-      setAuthTokens(data);
-      setUser(jwt_decode(data.access));
-      localStorage.setItem("authTokens", JSON.stringify(data));
-      history.push("/");
-    } else if (response.status === 401) {
-      // getting th error of 401
-      // console.
-      setError(await data.detail);
-    }
-  };
+  let { error } = useContext(AuthContext);
+  let { loginUser } = useContext(AuthContext);
 
   return (
     <>
-      x
       <MDBContainer>
         <MDBRow>
           <hr />
           <MDBCol md="6">
             <form onSubmit={loginUser}>
               {error ? (
-                <MDBAlert color="warning" dismiss>
-                  error
-                </MDBAlert>
+                <div className="alert alert-warning fade show" role="alert">
+                  {error}
+                </div>
               ) : (
                 ""
               )}
-              <p className="h4 text-center mb-4">Sign in</p>
+              <p className="h4 text-center mb-4">Login To Your Account</p>
 
               <label htmlFor="defaultFormUserUsernameEx" className="grey-text">
                 Phone Number
@@ -93,7 +60,7 @@ export default function LoginPage() {
                 </Link>
               </MDBCol>
               <MDBCol md="6">
-                <Link to="/topics" className="link">
+                <Link to="/register" className="link">
                   Create Acccout
                 </Link>
               </MDBCol>

@@ -61,7 +61,7 @@ export default function Header() {
                         <MDBDropdownLink>Change Password</MDBDropdownLink>
                       </MDBDropdownItem>
                       <MDBDropdownItem>
-                        <MDBDropdownLink>Something else here</MDBDropdownLink>
+                        <MDBDropdownLink tag={Link} to="/my-profile">Your Profile </MDBDropdownLink>
                       </MDBDropdownItem>
                     </MDBDropdownMenu>
                   </MDBDropdown>
