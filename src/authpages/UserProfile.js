@@ -4,8 +4,15 @@ import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 import AuthContext from "../context/AuthContext";
 import useAxios from "../utils/useAxios";
+import Locationmaps from "../components/Locationmaps";
 
-export default function RegisterPage() {
+const location = {
+  address: '1600 Amphitheatre Parkway, Mountain View, california.',
+  lat: 37.42216,
+  lng: -122.08427,
+}
+
+export default function UserProfile() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -226,6 +233,7 @@ export default function RegisterPage() {
             <hr />
           </MDBCol>
         </MDBRow>
+        <Locationmaps></Locationmaps>
       </MDBContainer>
     </>
   );

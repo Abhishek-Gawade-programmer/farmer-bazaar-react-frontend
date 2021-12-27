@@ -8,6 +8,9 @@ specifiers:
   '@testing-library/user-event': ^12.8.3
   axios: ^0.23.0
   dayjs: ^1.10.7
+  dotenv: ^10.0.0
+  google-map-react: ^2.1.10
+  google-maps-react: ^2.0.6
   jwt-decode: ^3.1.2
   mdb-react-ui-kit: ^1.6.0
   react: ^17.0.2
@@ -24,6 +27,9 @@ dependencies:
   '@testing-library/user-event': 12.8.3
   axios: 0.23.0
   dayjs: 1.10.7
+  dotenv: 10.0.0
+  google-map-react: 2.1.10_react-dom@17.0.2+react@17.0.2
+  google-maps-react: 2.0.6_react-dom@17.0.2+react@17.0.2
   jwt-decode: 3.1.2
   mdb-react-ui-kit: 1.6.0_react-dom@17.0.2+react@17.0.2
   react: 17.0.2
@@ -1691,6 +1697,12 @@ packages:
     resolution: {integrity: sha512-82cpyJyKRoQoRi+14ibCeGPu0CwypgtBAdBhq1WfvagpCZNKqwXbKwXllYSMG91DhmG4jt9gN8eP6lGOtozuaw==}
     dev: false
 
+  /@googlemaps/js-api-loader/1.12.12:
+    resolution: {integrity: sha512-wDsAvBcaW3Y7KXfig8grwJh8Wanh12J+SbJhi5DnjOOzL3Ssrz44KRNJ88Qgr67rTyCoa2VI5ImisfKcOBEEnQ==}
+    dependencies:
+      fast-deep-equal: 3.1.3
+    dev: false
+
   /@hapi/address/2.1.4:
     resolution: {integrity: sha512-QD1PhQk+s31P1ixsX0H0Suoupp3VMXzIVMSwobR3F3MSUO2YCV0B7xqLcUw/Bh8yuvd3LhpyqLQWTNcRmp6IdQ==}
     deprecated: Moved to 'npm install @sideway/address'
@@ -1950,6 +1962,10 @@ packages:
       '@types/node': 16.11.7
       '@types/yargs': 16.0.4
       chalk: 4.1.2
+    dev: false
+
+  /@mapbox/point-geometry/0.1.0:
+    resolution: {integrity: sha1-ioP5M1x4YO/6Lu7KJUMyqgru2PI=}
     dev: false
 
   /@nodelib/fs.scandir/2.1.5:
@@ -4762,6 +4778,11 @@ packages:
     resolution: {integrity: sha512-YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA==}
     dev: false
 
+  /dotenv/10.0.0:
+    resolution: {integrity: sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==}
+    engines: {node: '>=10'}
+    dev: false
+
   /dotenv/8.2.0:
     resolution: {integrity: sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==}
     engines: {node: '>=8'}
@@ -5920,6 +5941,31 @@ packages:
       object-assign: 4.1.1
       pify: 2.3.0
       pinkie-promise: 2.0.1
+    dev: false
+
+  /google-map-react/2.1.10_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-cqW2EcygYqF26inp5liM/pAcCwOGXB9LW32oGwf931Iuq8tnasCpyEtq87G+RyQCKCo2P8/QyV+MGHuc7r9AEg==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: ^16.0.0 || ^17.0.0
+      react-dom: ^16.0.0 || ^17.0.0
+    dependencies:
+      '@googlemaps/js-api-loader': 1.12.12
+      '@mapbox/point-geometry': 0.1.0
+      eventemitter3: 4.0.7
+      prop-types: 15.7.2
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    dev: false
+
+  /google-maps-react/2.0.6_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-M8Eo9WndfQEfxcmm6yRq03qdJgw1x6rQmJ9DN+a+xPQ3K7yNDGkVDbinrf4/8vcox7nELbeopbm4bpefKewWfQ==}
+    peerDependencies:
+      react: ~0.14.8 || ^15.0.0 || ^16.0.0
+      react-dom: ~0.14.8 || ^15.0.0 || ^16.0.0
+    dependencies:
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
     dev: false
 
   /graceful-fs/4.2.8:
