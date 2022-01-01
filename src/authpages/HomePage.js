@@ -1,15 +1,34 @@
 import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
 import useAxios from "../utils/useAxios";
+import ItemCard from "../components/subcomponents/ItemCard.js";
 
 const HomePage = () => {
     let { authTokens, logoutUser } = useContext(AuthContext);
-
+    const [itemList, setItemList] = useState([]);
     let api = useAxios();
+    let getItems = () => {
+        api.get("api/items/all-items/")
+            .then(function (response) {
+                if (response.status === 200) {
+                    console.log(
+                        "response data is",
+                        response.data,
+                        typeof response.data
+                    );
+                    setItemList(response.data);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    useEffect(() => {
+        getItems();
+    }, []);
 
     return (
         <div className="container">
-
             <div className="input-group input-group-lg mb-3 mt-3">
                 <div className="input-group-prepend">
                     <span className="input-group-text" id="basic-addon1">
@@ -31,72 +50,12 @@ const HomePage = () => {
                 </div>
             </div>
 
-            <h1>Home Page</h1>
-            <div className="row row-cols-1 row-cols-md-3 g-4">
-                <div className="col">
-                    <div className="card h-100">
-                        <img
-                            src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp"
-                            className="card-img-top"
-                            alt="Hollywood Sign on The Hill"
-                        />
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">
-                                This is a longer card with supporting text below
-                                as a natural lead-in to additional content. This
-                                content is a little bit longer.
-                            </p>
-                        </div>
-                    </div>
+            <h1>Tending Items</h1>
+                <div className="row row-cols-1 row-cols-md-3 g-4" >
+            {itemList.map((item) => (
+                <ItemCard item={item} key={item.id}></ItemCard>
+            ))}
                 </div>
-                <div className="col">
-                    <div className="card h-100">
-                        <img
-                            src="https://mdbcdn.b-cdn.net/img/new/standard/city/042.webp"
-                            className="card-img-top"
-                            alt="Palm Springs Road"
-                        />
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">This is a short card.</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="col">
-                    <div className="card h-100">
-                        <img
-                            src="https://mdbcdn.b-cdn.net/img/new/standard/city/043.webp"
-                            className="card-img-top"
-                            alt="Los Angeles Skyscrapers"
-                        />
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">
-                                This is a longer card with supporting text below
-                                as a natural lead-in to additional content.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div className="col">
-                    <div className="card h-100">
-                        <img
-                            src="https://mdbcdn.b-cdn.net/img/new/standard/city/044.webp"
-                            className="card-img-top"
-                            alt="Skyscrapers"
-                        />
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">
-                                This is a longer card with supporting text below
-                                as a natural lead-in to additional content. This
-                                content is a little bit longer.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     );
 };

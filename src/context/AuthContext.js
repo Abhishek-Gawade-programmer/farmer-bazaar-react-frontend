@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
   let sendOtp = (phoneNumber) => {
     console.log("taing the phouie number ads", phoneNumber);
     axios
-      .post("http://localhost:8000/api/users/send-otp-user/", {
+      .post("http://10.20.0.170/api/users/send-otp-user/", {
         phone_number: phoneNumber,
       })
       .then(function (response) {
@@ -41,11 +41,11 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  let verifyOTP = async (e) => {
+  let verifyOTP =  (e) => {
     e.preventDefault();
     console.log(localStorage.getItem("tobeverifyphone"),e.target.otptext.value)
     axios
-      .post("http://localhost:8000/api/users/validate-otp-user/", {
+      .post("http://10.20.0.170/api/users/validate-otp-user/", {
         phone_number: JSON.parse(localStorage.getItem("tobeverifyphone")),
         otp_text: e.target.otptext.value,
       })
@@ -61,10 +61,10 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  let loginUser = async (e) => {
+  let loginUser =  (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8000/api/users/token/", {
+      .post("http://10.20.0.170/api/users/token/", {
         username: e.target.phone.value,
         password: e.target.password.value,
       })
@@ -81,11 +81,11 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  let regsiterUser = async (e) => {
+  let regsiterUser =  (e) => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:8000/api/users/register/", {
+      .post("http://10.20.0.170/api/users/register/", {
         first_name: e.target.first_name.value,
         last_name: e.target.last_name.value,
         password: e.target.password.value,
@@ -93,7 +93,7 @@ export const AuthProvider = ({ children }) => {
       })
       .then(function (response) {
         if (response.status === 201) {
-          console.log("create new accou t and sendind otp to user");
+          console.log("create new accout and sendind otp to user");
           sendOtp(e.target.username.value);
         }
       })

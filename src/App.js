@@ -14,7 +14,6 @@ import PasswordReset from "./authpages/PasswordReset";
 function App() {
   return (
     <div className="App">
-    <pre>fghfghfg{process.env.NODE_ENV}</pre>
       <Router>
         <AuthProvider>
           <Header />
