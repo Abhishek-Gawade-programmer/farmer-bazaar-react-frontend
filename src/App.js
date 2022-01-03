@@ -10,6 +10,7 @@ import VerificationCodePage from "./authpages/VerificationCodePage";
 import UserProfile from "./authpages/UserProfile";
 import Header from "./components/Header";
 import PasswordReset from "./authpages/PasswordReset";
+import CreateNewItem from "./components/CreateNewItem";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route component={PasswordReset} path="/password-reset" />
           <Route component={VerificationCodePage} path="/verification-user" />
           <PrivateRoute component={UserProfile} path="/my-profile" exact />
+          <PrivateRoute component={CreateNewItem} path="/create-item" exact />
         </AuthProvider>
       </Router>
     </div>

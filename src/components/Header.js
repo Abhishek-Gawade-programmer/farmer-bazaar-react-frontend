@@ -44,6 +44,11 @@ export default function Header() {
                   Home
                 </MDBNavbarLink>
               </MDBNavbarItem>
+            <MDBNavbarItem>
+                <MDBNavbarLink active aria-current="page" tag={Link} to="/create-item">
+                  Create Item
+                </MDBNavbarLink>
+              </MDBNavbarItem>
 
               {user ? (
                 <MDBNavbarItem>
