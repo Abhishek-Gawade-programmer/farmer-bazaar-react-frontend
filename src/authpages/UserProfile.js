@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 import AuthContext from "../context/AuthContext";
 import useAxios from "../utils/useAxios";
-import Locationmaps from "../components/Locationmaps";
+// import Locationmaps from "../components/Locationmaps";
 
 const location = {
   address: '1600 Amphitheatre Parkway, Mountain View, california.',
@@ -233,7 +233,6 @@ export default function UserProfile() {
             <hr />
           </MDBCol>
         </MDBRow>
-        <Locationmaps></Locationmaps>
       </MDBContainer>
     </>
   );
