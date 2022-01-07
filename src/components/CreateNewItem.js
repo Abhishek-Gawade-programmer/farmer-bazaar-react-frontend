@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
 import axios from "axios";
+import useAxios from "../utils/useAxios";
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 const location = {
   address: "1600 Amphitheatre Parkway, Mountain View, california.",
@@ -13,29 +14,56 @@ const CreateNewItem = () => {
   let unitsList = "Ton, Kg, Gram, Box, Bag, Piece, Liter, ml, Feet, Acre".split(
     ","
   );
+  let api = useAxios();
   let submitItemDetails = (e) => {
     e.preventDefault();
     let itemFormData = new FormData();
-    console.log("title", e.target.item_name.value);
-    // console.log("category_value", e.target.date_value.value);
-    itemFormData.append("category", e.target.item_name.value);
+    console.log("name_value", e.target.name_value.value);
+    console.log("quantity_value", e.target.quantity_value.value);
+    console.log("description_value", e.target.description_value.value);
+    console.log("date_value", e.target.date_value.value);
+    console.log("category_value", e.target.category_value.value);
+    console.log("unit", e.target.unit.value);
+    console.log("expected_price_value", e.target.expected_price_value.value);
+    console.log("images_value", e.target.images_value.files);
+
+    itemFormData.append("category", e.target.category_value.value);
+    itemFormData.append("title", e.target.name_value.value);
+    itemFormData.append("available_date", e.target.date_value.value);
+    itemFormData.append("description", e.target.description_value.value);
+    itemFormData.append("quantity", e.target.quantity_value.value);
+    itemFormData.append("quantity_unit", "Kg");
+    itemFormData.append("expected_price", e.target.expected_price_value.value);
+    itemFormData.append("location_in_words", location.address);
+    itemFormData.append("location_longitude", location.lng);
+    itemFormData.append("location_latitude", location.lat);
+    window.loc=e.target.images_value.files
+    itemFormData.append("images", e.target.images_value.files[0]);
+    console.log("itemFormData", itemFormData);
+
+    api
+      .post("api/items/create-list-item/", itemFormData)
+      .then(function (response) {
+        if (response.status === 200) {
+          // setItemList(response.data);
+          console.log("gettign dfatta");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   let getCategories = () => {
     axios
-      .get("http://10.20.0.170/api/items/all-categoty/")
+      .get(process.env.REACT_APP_API_HOST_URL+"/api/items/all-categoty/")
       .then(function (response) {
-        // handle success
-        console.log(response.data);
         setCategories(response.data);
       })
       .catch(function (error) {
-        // handle error
         console.log(error);
       })
-      .then(function () {
-        // always executed
-      });
+ 
   };
   useEffect(() => {
     getCategories();
@@ -122,8 +150,8 @@ const CreateNewItem = () => {
                   required="required"
                   placeholder="Type your Description Here"
                   className="form-control"
-                  name="bio"
-                  id="bio"
+                  name="description_value"
+                  id="descriptionlabel"
                 />
                 <div id="lastnameHelp" className="form-text">
                   Enter Description of your item why should buyers to buy them?
@@ -140,11 +168,11 @@ const CreateNewItem = () => {
                   maxLength="10"
                   className="form-control"
                   placeholder="Quantity Number"
-                  name="username"
+                  name="quantity_value"
                   aria-label="Quantity Number"
                   aria-describedby="phonehelp"
                   id="quantitylabel"
-                />{" "}
+                />
               </div>
 
               {unitsList.map((unit, index) => (
@@ -154,6 +182,7 @@ const CreateNewItem = () => {
                     type="radio"
                     id={index}
                     name="unit"
+                    value={unit}
                     className="custom-control-input mr-3 pr-4"
                   />
                   <label className="custom-control-label" htmlFor={index}>
@@ -174,7 +203,7 @@ const CreateNewItem = () => {
                   maxLength="10"
                   className="form-control"
                   placeholder="Expected of Price"
-                  name="username"
+                  name="expected_price_value"
                   aria-label="Expected of Price"
                   aria-describedby="phonehelp"
                   id="quantitylabel"
@@ -189,6 +218,7 @@ const CreateNewItem = () => {
                     accept="image/*"
                     className="custom-file-input "
                     id="customFile"
+                    name="images_value"
                   />
                 </div>
               </div>

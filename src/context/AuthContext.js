@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
   let sendOtp = (phoneNumber) => {
     console.log("taing the phouie number ads", phoneNumber);
     axios
-      .post("http://10.20.0.170/api/users/send-otp-user/", {
+      .post(process.env.REACT_APP_API_HOST_URL+"/api/users/send-otp-user/", {
         phone_number: phoneNumber,
       })
       .then(function (response) {
@@ -45,7 +45,9 @@ export const AuthProvider = ({ children }) => {
     e.preventDefault();
     console.log(localStorage.getItem("tobeverifyphone"),e.target.otptext.value)
     axios
-      .post("http://10.20.0.170/api/users/validate-otp-user/", {
+      // .post(process.env.REACT_APP_API_HOST_URL+"/api/users/validate-otp-user/", {
+      .post(process.env.REACT_APP_API_HOST_URL+"/api/users/validate-otp-user/", {
+
         phone_number: JSON.parse(localStorage.getItem("tobeverifyphone")),
         otp_text: e.target.otptext.value,
       })
@@ -64,7 +66,7 @@ export const AuthProvider = ({ children }) => {
   let loginUser =  (e) => {
     e.preventDefault();
     axios
-      .post("http://10.20.0.170/api/users/token/", {
+      .post(process.env.REACT_APP_API_HOST_URL+"/api/users/token/", {
         username: e.target.phone.value,
         password: e.target.password.value,
       })
@@ -85,7 +87,7 @@ export const AuthProvider = ({ children }) => {
     e.preventDefault();
 
     axios
-      .post("http://10.20.0.170/api/users/register/", {
+      .post(process.env.REACT_APP_API_HOST_URL+"/api/users/register/", {
         first_name: e.target.first_name.value,
         last_name: e.target.last_name.value,
         password: e.target.password.value,

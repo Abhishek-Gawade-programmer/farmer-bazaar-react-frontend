@@ -2,13 +2,28 @@ import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
 import useAxios from "../utils/useAxios";
 import ItemCard from "../components/subcomponents/ItemCard.js";
-
+import axios from "axios";
 const HomePage = () => {
     let { authTokens, logoutUser } = useContext(AuthContext);
     const [itemList, setItemList] = useState([]);
+    const isCancelled = React.useRef(false);
+    const [categories, setCategories] = useState([]);
     let api = useAxios();
+
+    let getCategories = () => {
+        axios
+            .get(
+                process.env.REACT_APP_API_HOST_URL + "/api/items/all-categoty/"
+            )
+            .then(function (response) {
+                setCategories(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
     let getItems = () => {
-        api.get("api/items/all-items/")
+        api.get("api/items/create-list-item/")
             .then(function (response) {
                 if (response.status === 200) {
                     console.log(
@@ -23,8 +38,26 @@ const HomePage = () => {
                 console.log(error);
             });
     };
+    let getCategoryItems = (categoryName) => {
+        console.log("categoryName", categoryName);
+        axios
+            .get(
+                process.env.REACT_APP_API_HOST_URL +
+                    `/api/items/sort-item-category/${categoryName}`
+            )
+            .then(function (response) {
+                if (response.status === 200) {
+                    setItemList(response.data);
+                    console.log(response);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
     useEffect(() => {
         getItems();
+        getCategories();
     }, []);
 
     return (
@@ -49,13 +82,38 @@ const HomePage = () => {
                     </span>
                 </div>
             </div>
+            <div className="card">
+                <div className="card-body">
+                    <h2>
+                        <span
+                            className="badge badge-primary"
+                            onClick={() => getItems()}
+                        >
+                            All Items
+                        </span>
+                        {categories.map((category, index) => (
+                            <span
+                                className="badge badge-primary"
+                                key={index}
+                                onClick={() =>
+                                    getCategoryItems(`${category.name}`)
+                                }
+                            >
+                                {category.name}
+                            </span>
+                        ))}
+                    </h2>
+                </div>
+            </div>
+            <br />
 
             <h1>Tending Items</h1>
-                <div className="row row-cols-1 row-cols-md-3 g-4" >
-            {itemList.map((item) => (
-                <ItemCard item={item} key={item.id}></ItemCard>
-            ))}
-                </div>
+            <hr />
+            <div className="row row-cols-1 row-cols-md-3 g-4">
+                {itemList.map((item) => (
+                    <ItemCard item={item} key={item.id}></ItemCard>
+                ))}
+            </div>
         </div>
     );
 };
