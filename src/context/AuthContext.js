@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  let verifyOTP = async (e) => {
+  let verifyOTP =  (e) => {
     e.preventDefault();
     console.log(localStorage.getItem("tobeverifyphone"), e.target.otptext.value)
     axios
@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  let loginUser = async (e) => {
+  let loginUser =  (e) => {
     e.preventDefault();
     axios
       .post("http://10.20.0.170/api/users/token/", {
@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  let regsiterUser = async (e) => {
+  let regsiterUser =  (e) => {
     e.preventDefault();
 
     axios
@@ -93,7 +93,7 @@ export const AuthProvider = ({ children }) => {
       })
       .then(function (response) {
         if (response.status === 201) {
-          console.log("create new accou t and sendind otp to user");
+          console.log("create new accout and sendind otp to user");
           sendOtp(e.target.username.value);
         }
       })

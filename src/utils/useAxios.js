@@ -5,7 +5,7 @@ import { useContext } from 'react'
 import AuthContext from '../context/AuthContext'
 
 
-const baseURL = 'http://127.0.0.1:8000'
+const baseURL = 'http://10.20.0.170'
 
 
 const useAxios = () => {

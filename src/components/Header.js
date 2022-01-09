@@ -24,7 +24,7 @@ export default function Header() {
 
   return (
     <>
-      <MDBNavbar expand="lg" light bgColor="light">
+      <MDBNavbar expand="lg" dark bgColor="dark">
         <MDBContainer fluid>
           <MDBNavbarBrand href="#">Farmer Bazer</MDBNavbarBrand>
 
@@ -40,8 +40,13 @@ export default function Header() {
           <MDBCollapse navbar show={showBasic}>
             <MDBNavbarNav className="mr-auto mb-2 mb-lg-0">
               <MDBNavbarItem>
-                <MDBNavbarLink active aria-current="page" href="#">
+                <MDBNavbarLink active aria-current="page" tag={Link} to="/">
                   Home
+                </MDBNavbarLink>
+              </MDBNavbarItem>
+              <MDBNavbarItem>
+                <MDBNavbarLink active aria-current="page" tag={Link} to="/create-item">
+                  Create Item
                 </MDBNavbarLink>
               </MDBNavbarItem>
 
@@ -87,7 +92,7 @@ export default function Header() {
           </MDBCollapse>
         </MDBContainer>
       </MDBNavbar>
-      
+
     </>
   );
 }

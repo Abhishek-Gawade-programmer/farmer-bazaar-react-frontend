@@ -26,14 +26,12 @@ export default function UserProfile() {
     setLastName(data.user.last_name);
     setEmail(data.user.email);
     setPhone(data.user.username);
-    console.log("BIO DATA", data.bio);
     setBio(data.bio);
   };
   let onFirstNameChange = (e) => {
     setFirstName(e.target.value);
   };
   let onFileChange = (e) => {
-    console.log("gettibng file data is", e.target.files[0]);
     setFile(e.target.files[0]);
   };
   let onsetBioChange = (e) => {
@@ -53,10 +51,16 @@ export default function UserProfile() {
         first_name: firstName,
         last_name: lastName,
         email: email,
+
       },
       bio: bio,
+      location: {
+        "id": 1,
+        "in_words": "timnpa45ss very mushgvsdftrf",
+        "longitude": "786.5000000000000000",
+        "latitude": "767.5000000000000000"
+      }
     };
-    console.log("dtat to sent", obj);
     api
       .put("api/users/user-profile/", obj, {
         headers: {
@@ -66,7 +70,6 @@ export default function UserProfile() {
       .then(function (response) {
         if (response.status === 200) {
           console.log(response.data.user);
-          // setUserDetails(response.data.user);
         }
       })
       .catch(function (error) {
@@ -152,7 +155,7 @@ export default function UserProfile() {
                 </span>
                 <input
                   defaultValue={phone}
-                  readOnly=""
+                  readOnly="readOnly"
                   required=""
                   type="text"
                   maxLength="10"
@@ -233,6 +236,7 @@ export default function UserProfile() {
             <hr />
           </MDBCol>
         </MDBRow>
+        {/* <Locationmaps></Locationmaps> */}
       </MDBContainer>
     </>
   );
