@@ -3,7 +3,8 @@ import jwt_decode from "jwt-decode";
 import dayjs from 'dayjs'
 
 
-const baseURL = 'http://10.20.0.170'
+// const baseURL = 'http://10.20.0.170'
+const baseURL = process.env.REACT_APP_API_HOST_URL
 
 
 let authTokens = localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null
