@@ -8,8 +8,47 @@ const HomePage = () => {
     const [itemList, setItemList] = useState([]);
     const isCancelled = React.useRef(false);
     const [categories, setCategories] = useState([]);
-    const [currentCategory, setCurrentCategory] = useState('All items');
+    const [currentCategory, setCurrentCategory] = useState("All items");
     let api = useAxios();
+    let getSearchItems = (itemTitle) => {
+        if (currentCategory === "All items" && itemTitle) {
+            console.log("semnfong yth reqtesuy", itemTitle);
+            axios
+                .get(
+                    process.env.REACT_APP_API_HOST_URL +
+                        "/api/items/create-list-item/" +
+                        `?title=${itemTitle}`
+                )
+                .then(function (response) {
+                    setItemList(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        } else if (itemTitle.length) {
+            axios
+                .get(
+                    process.env.REACT_APP_API_HOST_URL +`/api/items/create-list-item/?title=${itemTitle}&category=${currentCategory}`
+                )
+                .then(function (response) {
+                    setItemList(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            console.log("do sopthiong wrt dg", currentCategory);
+        }
+    };
+
+    let searchItems = (e) => {
+        e.preventDefault();
+        console.log("queet", e.target.search.value);
+        if (e.target.search.value.length) {
+            getSearchItems(e.target.search.value);
+        } else {
+            getItems();
+        }
+    };
 
     let getCategories = () => {
         axios
@@ -17,6 +56,7 @@ const HomePage = () => {
                 process.env.REACT_APP_API_HOST_URL + "/api/items/all-categoty/"
             )
             .then(function (response) {
+                console.log("all categories data", response.data);
                 setCategories(response.data);
             })
             .catch(function (error) {
@@ -24,11 +64,16 @@ const HomePage = () => {
             });
     };
     let getItems = () => {
-        api.get("api/items/create-list-item/")
+        axios
+            .get(
+                process.env.REACT_APP_API_HOST_URL +
+                    "/api/items/create-list-item/"
+            )
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log('response.data :>> ', response.data);
+                    console.log("response.data :>> ", response.data);
                     setItemList(response.data);
+                    setCurrentCategory("All items");
                 }
             })
             .catch(function (error) {
@@ -40,7 +85,7 @@ const HomePage = () => {
         axios
             .get(
                 process.env.REACT_APP_API_HOST_URL +
-                `/api/items/sort-item-category/${categoryName}`
+                    `/api/items/sort-item-category/${categoryName}`
             )
             .then(function (response) {
                 if (response.status === 200) {
@@ -54,47 +99,53 @@ const HomePage = () => {
             });
     };
     useEffect(() => {
-        console.log('Before reload');
+        console.log("Before reload");
 
-        console.log('After reload');
+        console.log("After reload");
         getItems();
         getCategories();
     }, []);
 
     return (
         <div className="container">
-            <div className="input-group input-group-lg mb-3 mt-3">
-                <div className="input-group-prepend">
-                    <span className="input-group-text" id="basic-addon1">
-                        <i className="fas fa-camera fa-2x"></i>
-                    </span>
+            <form onSubmit={searchItems}>
+                <div className="input-group input-group-lg mb-3 mt-3">
+                    <div className="input-group-prepend">
+                        <span className="input-group-text" id="basic-addon1">
+                            <i className="fas fa-camera fa-2x"></i>
+                        </span>
+                    </div>
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Search 1000+ Products"
+                        aria-label="Search"
+                        aria-describedby="basic-addon1"
+                        name="search"
+                    />
+                    <div className="input-group-append">
+                        <input
+                            type="submit"
+                            className="btn btn-lg btn-primary"
+                            value="Search"
+                        />
+                    </div>
                 </div>
-                <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Search 1000+ Products"
-                    aria-label="Username"
-                    aria-describedby="basic-addon1"
-                    name="search"
-                />
-                <div className="input-group-append">
-                    <span className="input-group-text" id="basic-addon1">
-                        <i className="fas fa-search fa-2x"></i>
-                    </span>
-                </div>
-            </div>
+            </form>
             <div className="card">
                 <div className="card-body">
                     <h2>
-                        <span style={{ cursor: "pointer" }}
+                        <span
+                            style={{ cursor: "pointer" }}
                             className="badge badge-primary"
                             onClick={() => getItems()}
                         >
                             All Items
                         </span>
                         {categories.map((category, index) => (
-                            <span style={{ cursor: "pointer" }}
-                                className="badge badge-primary mx-1"
+                            <span
+                                style={{ cursor: "pointer" }}
+                                className={`badge badge-${category.color} mx-1`}
                                 key={index}
                                 onClick={() =>
                                     getCategoryItems(`${category.name}`)

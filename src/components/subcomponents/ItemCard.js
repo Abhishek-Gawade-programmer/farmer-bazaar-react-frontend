@@ -5,7 +5,7 @@ const ItemCard = ({ item }) => {
 		<div className="col" >
 			<div className="card h-100">
 				<div style={{ display: 'flex', justifyContent: 'flex-start', position: 'absolute', left: '0' }} className="categorycontains">
-					<span className=" badge rounded-pill bg-danger" style={{ right: '89%', zIndex: '1' }}> {item.category} </span>
+					<span className={`badge rounded-pill bg-${item.category.color}`} style={{ right: '89%', zIndex: '1' }}> {item.category.name} </span>
 				</div>
 				<img
 					src={item.images[0]}
@@ -16,7 +16,6 @@ const ItemCard = ({ item }) => {
 					<h5 className="card-title">{item.title}</h5>
 					<p className="card-text">{item.description}</p>
 					<p className="card-text " ><i className="fas fa-rupee-sign"></i>{item.expected_price}  </p>
-					<p className="card-text" ><i className="fas fa-map-marker-alt"></i> {item.location_in_words}</p>
 				</div>
 			</div>
 		</div>
