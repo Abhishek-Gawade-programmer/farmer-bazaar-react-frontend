@@ -11,7 +11,8 @@ const location = {
 
 const CreateNewItem = () => {
   const [categories, setCategories] = useState([]);
-  let unitsList = "Ton, Kg, Gram, Box, Bag, Piece, Liter, ml, Feet, Acre".split(
+  const [subCategories, setSubCategories] = useState([]);
+  let unitsList = "Ton, Kg, Gram".split(
     ","
   );
   let api = useAxios();
@@ -54,7 +55,7 @@ const CreateNewItem = () => {
       });
   };
 
-  let getCategories = () => {
+  let getCategoriesSubCategories = () => {
     axios
       .get(process.env.REACT_APP_API_HOST_URL+"/api/items/all-categoty/")
       .then(function (response) {
@@ -63,10 +64,18 @@ const CreateNewItem = () => {
       .catch(function (error) {
         console.log(error);
       })
+    axios
+      .get(process.env.REACT_APP_API_HOST_URL+"/api/items/all-subcategoty/")
+      .then(function (response) {
+        setSubCategories(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
  
   };
   useEffect(() => {
-    getCategories();
+    getCategoriesSubCategories();
   }, []);
 
   return (
@@ -86,7 +95,6 @@ const CreateNewItem = () => {
                     className=" form-control custom-select"
                     id="categorylabel"
                     name="category_value"
-                    // required="required"
                   >
                     <option defaultValue="" required="required">
                       Select Category
@@ -103,6 +111,33 @@ const CreateNewItem = () => {
                   </select>
                 </div>
               </div>
+             <div className="mb-3">
+                <label htmlFor="categorylabel" className="form-label">
+                  Choose Your Item  Sub Category
+                </label>
+                <div className="input-group mb-3">
+                  <select
+                    className=" form-control custom-select"
+                    id="categorylabel"
+                    name="category_value"
+                  >
+                    <option defaultValue="" required="required">
+                      Select Category
+                    </option>
+                    {subCategories.map((subCategory) => (
+                      <option
+                        value={subCategory.name}
+                        key={subCategory.id}
+                        required="required"
+                      >
+                        {subCategory.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+
               <div className="mb-3">
                 <label htmlFor="titleamelablel" className="form-label">
                   Enter The Title Name
@@ -174,7 +209,11 @@ const CreateNewItem = () => {
                   id="quantitylabel"
                 />
               </div>
-
+              <div className="form-check">
+                <input type="checkbox" className="form-check-input" id="available_statuslabel" />
+                <label className="form-check-label" htmlFor="available_statuslabel">Available Status</label>
+              </div>
+              <br/>
               {unitsList.map((unit, index) => (
                 <span key={index}>
                   <input

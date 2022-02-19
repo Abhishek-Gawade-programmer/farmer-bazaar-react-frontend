@@ -53,7 +53,7 @@ const HomePage = () => {
     let getCategories = () => {
         axios
             .get(
-                process.env.REACT_APP_API_HOST_URL + "/api/items/all-categoty/"
+                process.env.REACT_APP_API_HOST_URL + "/api/items/all-category/"
             )
             .then(function (response) {
                 console.log("all categories data", response.data);
@@ -72,7 +72,7 @@ const HomePage = () => {
             .then(function (response) {
                 if (response.status === 200) {
                     console.log("response.data :>> ", response.data);
-                    setItemList(response.data);
+                    setItemList(response.data.results);
                     setCurrentCategory("All items");
                 }
             })
@@ -85,11 +85,11 @@ const HomePage = () => {
         axios
             .get(
                 process.env.REACT_APP_API_HOST_URL +
-                    `/api/items/sort-item-category/${categoryName}`
+                    `/api/items/create-list-item/?category=${categoryName}`
             )
             .then(function (response) {
                 if (response.status === 200) {
-                    setItemList(response.data);
+                    setItemList(response.data.results);
                     setCurrentCategory(categoryName);
                     console.log(response);
                 }

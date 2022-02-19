@@ -8,14 +8,14 @@ const ItemCard = ({ item }) => {
 					<span className={`badge rounded-pill bg-${item.category.color}`} style={{ right: '89%', zIndex: '1' }}> {item.category.name} </span>
 				</div>
 				<img
-					src={item.images[0]}
+					src={process.env.REACT_APP_API_HOST_URL+item.images[0].thumbnail_image}
 					className="card-img-top"
 					alt="Hollywood Sign on The Hill"
 				/>
 				<div className="card-body">
 					<h5 className="card-title">{item.title}</h5>
 					<p className="card-text">{item.description}</p>
-					<p className="card-text " ><i className="fas fa-rupee-sign"></i>{item.expected_price}  </p>
+					<p className="card-text " ><i className="fas fa-rupee-sign"></i>{item.price}  </p>
 				</div>
 			</div>
 		</div>

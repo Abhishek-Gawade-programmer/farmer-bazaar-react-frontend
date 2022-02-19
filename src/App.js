@@ -11,6 +11,8 @@ import UserProfile from "./authpages/UserProfile";
 import Header from "./components/Header";
 import PasswordReset from "./authpages/PasswordReset";
 import CreateNewItem from "./components/CreateNewItem";
+import AddBagsToItem from "./components/subcomponents/AddBagsToItem";
+
 
 function App() {
   return (
@@ -25,6 +27,7 @@ function App() {
           <Route component={VerificationCodePage} path="/verification-user" />
           <PrivateRoute component={UserProfile} path="/my-profile" exact />
           <PrivateRoute component={CreateNewItem} path="/create-item" exact />
+          <PrivateRoute path="/add-bags/:id" component={AddBagsToItem} />
         </AuthProvider>
       </Router>
     </div>
